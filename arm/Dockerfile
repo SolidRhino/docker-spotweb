@@ -1,5 +1,5 @@
-FROM erikdevries/rpi-baseimage:latest
-MAINTAINER Erik de Vries <docker@erikdevries.nl>
+FROM solidrhino/rpi-baseimage:latest
+LABEL maintainer="Solid Rhino"
 
 RUN apk -U update && \
     apk -U upgrade && \
