@@ -1,6 +1,6 @@
 # Dockerfile to set up Spotweb on ARM and X86 based systems
 
-[![Build Status](https://travis-ci.org/edv/docker-spotweb.svg?branch=master)](https://travis-ci.org/edv/docker-spotweb)
+[![Build Status](https://travis-ci.com/SolidRhino/docker-spotweb.svg?branch=master)](https://travis-ci.com/SolidRhino/docker-spotweb)
 
 The main goal of this Dockerfile is to easily set up Spotweb using Docker on the Raspberry Pi 2/3 (or any compatible ARM chipset) and regular X86 chipsets.
 
