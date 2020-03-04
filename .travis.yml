@@ -1,10 +1,10 @@
-sudo: false
+os: linux
 dist: trusty
 
 services:
 - docker
 
-language: bash
+language: shell
 
 branches:
   only:
@@ -12,23 +12,23 @@ branches:
 
 script:
   # Build X86 docker image
-  - docker build -f ./x86/Dockerfile -t erikdevries/spotweb .
+  - docker build -f ./x86/Dockerfile -t solidrhino/spotweb .
 
   # Build ARM docker image
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-  - docker build -f ./arm/Dockerfile -t erikdevries/rpi-spotweb .
+  - docker build -f ./arm/Dockerfile -t solidrhino/rpi-spotweb .
 
 after_success:
 # push image
 - >
   if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
-    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+    echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
-    docker tag erikdevries/spotweb erikdevries/spotweb:latest
-    docker tag erikdevries/spotweb erikdevries/spotweb:$TRAVIS_BUILD_NUMBER
-    docker push erikdevries/spotweb
+    docker tag solidrhino/spotweb solidrhino/spotweb:latest
+    docker tag solidrhino/spotweb solidrhino/spotweb:$TRAVIS_BUILD_NUMBER
+    docker push solidrhino/spotweb
 
-    docker tag erikdevries/rpi-spotweb erikdevries/rpi-spotweb:latest
-    docker tag erikdevries/rpi-spotweb erikdevries/rpi-spotweb:$TRAVIS_BUILD_NUMBER
-    docker push erikdevries/rpi-spotweb
+    docker tag solidrhino/rpi-spotweb solidrhino/rpi-spotweb:latest
+    docker tag solidrhino/rpi-spotweb solidrhino/rpi-spotweb:$TRAVIS_BUILD_NUMBER
+    docker push solidrhino/rpi-spotweb
   fi
